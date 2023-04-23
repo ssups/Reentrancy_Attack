@@ -20,7 +20,7 @@ contract SafeBank {
 
     function withdraw() external {
         console.log("balance of %s : %s ", msg.sender, balanceOf[msg.sender]);
-        // require(balanceOf[msg.sender] > 0, "not enough balance to withdraw");
+        require(balanceOf[msg.sender] > 0, "not enough balance to withdraw");
         balanceOf[msg.sender] = 0;
         (bool success, ) = msg.sender.call{value: balanceOf[msg.sender]}("");
         // require(success, "withdraw failed");
