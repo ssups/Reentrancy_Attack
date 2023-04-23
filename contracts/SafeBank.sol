@@ -19,10 +19,11 @@ contract SafeBank {
     }
 
     function withdraw() external {
+        // Checks-Effects-Interactions 패턴
         console.log("balance of %s : %s ", msg.sender, balanceOf[msg.sender]);
-        require(balanceOf[msg.sender] > 0, "not enough balance to withdraw");
-        balanceOf[msg.sender] = 0;
+        require(balanceOf[msg.sender] > 0, "not enough balance to withdraw"); // check
+        balanceOf[msg.sender] = 0; // effects to the state variables
         (bool success, ) = msg.sender.call{value: balanceOf[msg.sender]}("");
-        // require(success, "withdraw failed");
+        require(success, "withdraw failed");
     }
 }
