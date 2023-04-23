@@ -10,7 +10,7 @@ import "hardhat/console.sol";
 
 // 2. inherit from ReentrancyGuard
 contract SafeBank {
-    using Address for address payable;
+    // using Address for address payable;
 
     mapping(address => uint256) public balanceOf;
 

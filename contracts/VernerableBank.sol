@@ -20,7 +20,9 @@ contract VernerableBank {
     /* 3. attach nonReentrant to protect against reentracy */
     function withdraw() external {
         uint256 depositedAmount = balanceOf[msg.sender];
-        payable(msg.sender).sendValue(depositedAmount);
+        // payable(msg.sender).sendValue(depositedAmount);
+        (bool success, ) = msg.sender.call{value: depositedAmount}("");
+        require(success);
         balanceOf[msg.sender] = 0;
     }
 }
