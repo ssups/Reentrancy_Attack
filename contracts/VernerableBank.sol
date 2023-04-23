@@ -22,7 +22,6 @@ contract VernerableBank {
         uint256 depositedAmount = balanceOf[msg.sender];
         // payable(msg.sender).sendValue(depositedAmount);
         (bool success, ) = msg.sender.call{value: depositedAmount}("");
-        require(success);
         require(success, "withdraw failed");
         balanceOf[msg.sender] = 0;
     }
