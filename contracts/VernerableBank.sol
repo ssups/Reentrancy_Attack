@@ -3,11 +3,8 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/utils/Arrays.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
+import "hardhat/console.sol";
 
-// 1. import contract
-// import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-
-// 2. inherit from ReentrancyGuard
 contract VernerableBank {
     using Address for address payable;
 
@@ -17,10 +14,9 @@ contract VernerableBank {
         balanceOf[msg.sender] += msg.value;
     }
 
-    /* 3. attach nonReentrant to protect against reentracy */
     function withdraw() external {
+        console.log("entered");
         uint256 depositedAmount = balanceOf[msg.sender];
-        // payable(msg.sender).sendValue(depositedAmount);
         (bool success, ) = msg.sender.call{value: depositedAmount}("");
         require(success, "withdraw failed");
         balanceOf[msg.sender] = 0;

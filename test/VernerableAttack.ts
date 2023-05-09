@@ -22,9 +22,7 @@ describe('Deploy contracts', function () {
 
   describe('Test deposit and withdraw of Bank contract', function () {
     it('Should accept deposits', async function () {
-      const { deployer, user, attacker, bankContract, attackerContract } = await loadFixture(
-        deployContractsFixture
-      );
+      const { deployer, user, bankContract } = await loadFixture(deployContractsFixture);
       const deployerBalance = await bankContract.balanceOf(deployer.address);
       expect(deployerBalance).to.eq(ethers.utils.parseEther('1000'));
 
@@ -33,9 +31,7 @@ describe('Deploy contracts', function () {
     });
 
     it('Should accept withdrawals', async function () {
-      const { deployer, user, attacker, bankContract, attackerContract } = await loadFixture(
-        deployContractsFixture
-      );
+      const { deployer, user, bankContract } = await loadFixture(deployContractsFixture);
       await bankContract.withdraw();
 
       const deployerBalance = await bankContract.balanceOf(deployer.address);
@@ -46,7 +42,7 @@ describe('Deploy contracts', function () {
     });
 
     it('Perform Attack', async function () {
-      const { deployer, user, attacker, bankContract, attackerContract } = await loadFixture(
+      const { attacker, bankContract, attackerContract } = await loadFixture(
         deployContractsFixture
       );
       console.log('');
